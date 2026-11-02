@@ -1,0 +1,66 @@
+---
+// src/layouts/BaseLayout.astro
+import { ClientRouter } from 'astro:transitions';
+import HitCounter from '../components/HitCounter.astro';
+import '../styles/global.css';
+
+const { title = "GOOD GARDEN ARCHIVE" } = Astro.props;
+---
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <ClientRouter />
+  </head>
+  <body>
+    <div id="os-desktop">
+      <!-- Janela Principal do Browser / Sistema -->
+      <div class="win-window" style="flex: 1; display: flex; flex-direction: column;">
+        <div class="win-title-bar">
+          <span>Internet Explorer — http://good-garden-archive.sys/{title.toLowerCase().split(' ')[0]}</span>
+          <div class="win-title-buttons">
+            <button class="win-btn">_</button>
+            <button class="win-btn">□</button>
+            <button class="win-btn">✕</button>
+          </div>
+        </div>
+
+       <!-- Menu Superior Estilo Barra de Ferramentas -->
+        <div style="background: var(--win-bg); border-bottom: 1px solid var(--win-dark-gray); padding: 5px 10px; display: flex; gap: 15px; font-size: 12px;">
+          <a href="/" style="text-decoration: none; color: black;"><b>Início</b></a>
+          <a href="/characters" style="text-decoration: none; color: black;">Personagens</a>
+          <a href="/gallery" style="text-decoration: none; color: black;">Galeria</a>
+          <a href="/music" style="text-decoration: none; color: black;">Música</a>
+          <a href="/videos" style="text-decoration: none; color: black;">Vídeos</a>
+          <a href="/classifieds" style="text-decoration: none; color: black;">Classificados</a>
+          <a href="/archive" style="text-decoration: none; color: black;">Arquivo</a>
+          <a href="/chat" style="text-decoration: none; color: #873C36;"><b>[ Chat IRC ]</b></a>
+        </div>
+
+        <marquee scrollamount="3" style="background: #000; color: #00ff00; font-family: var(--font-pixel); font-size: 11px; padding: 2px 0;">
+          [SYS_LOG] Conexão segura estabelecida com o núcleo... O jardim respira...
+        </marquee>
+
+        <div style="padding: 20px; flex: 1; overflow-y: auto;">
+          <slot />
+        </div>
+      </div>
+
+      <!-- Barra de Tarefas Estilo Windows XP / 98 -->
+      <footer class="win-taskbar">
+        <div class="start-button">
+          <span>🟢</span> <b>Iniciar</b>
+        </div>
+        <div style="font-family: var(--font-pixel); font-size: 12px; color: #000;">
+          GOOD_GARDEN_ARCHIVE.exe (ATIVO)
+        </div>
+        <div class="taskbar-tray" id="clock">
+          20:06
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

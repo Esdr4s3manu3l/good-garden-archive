@@ -1,0 +1,319 @@
+---
+// Página de Personagens - Good Garden Archive (GGA)
+
+const characters = [
+  {
+    id: 'owl',
+    name: 'OWL (Crazy)',
+    role: 'Produtor Musical / O Intelectual Caótico',
+    status: 'ATIVO [Ficha: Desordem Pública - 30/10/2006]',
+    description: 'Inteligente, analítico e imprevisível. Owl é a mente por trás das batidas mais absurdas e geniais do estúdio. Consegue racionalizar qualquer ideia louca em um beat pesado, sempre com um plano dentro de outro plano — geralmente enquanto fuma um na mesa de som.',
+    image: '/assets/characters/owl_profile.jpg'
+  },
+  {
+    id: 'raccoon',
+    name: 'RACCONN (Core)',
+    role: 'Vocalista / O Cúmplice Racional',
+    status: 'INSTÁVEL [Ficha: Vadiagem e Insubordinação - 30/10/2006]',
+    description: 'Ponderado, sensato e observador, funciona como o freio da dupla... pelo menos até o bom senso perder o horário de funcionamento. Às vezes tenta arriscar umas produções por conta própria, mas prefere fechar as letras e fechar parcerias com os outros nomes que circulam pelo submundo do universo.',
+    image: '/assets/characters/raccoon_profile.jpg'
+  }
+];
+---
+
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Internet Explorer — http://good-garden-archive.sys/personagens</title>
+  </head>
+  <body>
+
+    {/* Simulação da Janela do Navegador / Sistema */}
+    <div class="browserWindow">
+      
+      {/* Barra de Título do Internet Explorer */}
+      <div class="ieTitleBar">
+        <span>Internet Explorer — http://good-garden-archive.sys/personagens</span>
+        <div class="windowControls">
+          <button class="controlBtn">_</button>
+          <button class="controlBtn">□</button>
+          <button class="controlBtn">X</button>
+        </div>
+      </div>
+
+      {/* Menu Superior de Navegação do Portal */}
+      <div class="navBar">
+        <a href="/" class="navLink">Início</a>
+        <a href="/personagens" class="navLink activeTab">Personagens</a>
+        <a href="/galeria" class="navLink">Galeria</a>
+        <a href="/music" class="navLink">Música</a>
+        <a href="/videos" class="navLink">Vídeos</a>
+        <a href="/classifieds" class="navLink">Classificados</a>
+        <a href="/arquivo" class="navLink">Arquivo</a>
+        <a href="/" class="navLink chatLink">[ Chat IRC ]</a>
+      </div>
+
+      {/* Barra de Log do Sistema */}
+      <div class="sysLog">
+        [SYS_LOG] Dossiês de CRAZY & CORE carregados.
+      </div>
+
+      {/* Conteúdo Interno Estilo Diretório Windows 98 / Exploração */}
+      <div class="contentArea">
+        <div class="retroWindow">
+          
+          <div class="retroTitleBar">
+            <span>📁 DIRETÓRIO_ENTIDADES_C:\GARDEN\PROFILES</span>
+            <div class="windowControls">
+              <button class="controlBtn">_</button>
+              <button class="controlBtn">✕</button>
+            </div>
+          </div>
+
+          <div class="retroBody">
+            <p class="instructions">
+              Registros policiais e perfis artísticos dos criadores do núcleo (CRAZY & CORE).
+            </p>
+
+            {/* Caixa estilo terminal com os perfis */}
+            <div class="terminalBox">
+              <div class="folderHeader">
+                <span>📁 Fichas de Identificação</span>
+                <span class="restrictedBadge">🔒 [CONFIDENCIAL]</span>
+              </div>
+
+              <div class="characterList">
+                {characters.map((char) => (
+                  <div class="charCard">
+                    <div class="charPhotoFrame">
+                      <img src={char.image} alt={char.name} class="charImg" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'120\'><rect width=\'100\' height=\'120\' fill=\'%23111\'/><text x=\'50%\' y=\'50%\' fill=\'%2300ff00\' font-size=\'10\' text-anchor=\'middle\' dominant-baseline=\'middle\'>SEM_FOTO</text></svg>'" />
+                    </div>
+                    <div class="charDetails">
+                      <div class="charHeaderInfo">
+                        <h3 class="charName">{char.name}</h3>
+                        <span class="charStatus">[{char.status}]</span>
+                      </div>
+                      <div class="charRole">{char.role}</div>
+                      <p class="charDesc">{char.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div style="margin-top: 15px;">
+              <a href="/" class="backLink">← Retornar à Área de Trabalho</a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <style>
+      body {
+        background-color: #004e4e;
+        background-image: radial-gradient(#006b6b 1px, transparent 1px);
+        background-size: 8px 8px;
+        margin: 0;
+        padding: 20px;
+        font-family: 'Tahoma', sans-serif;
+        user-select: none;
+      }
+      .browserWindow {
+        width: 950px;
+        margin: 0 auto;
+        background-color: #c0c0c0;
+        border: 2px solid;
+        border-color: #fff #404040 #404040 #fff;
+        box-shadow: 4px 4px 15px rgba(0,0,0,0.6);
+      }
+      .ieTitleBar {
+        background: linear-gradient(90deg, #000080, #1084d0);
+        color: #fff;
+        padding: 4px 8px;
+        font-weight: bold;
+        font-size: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .windowControls {
+        display: flex;
+        gap: 2px;
+      }
+      .controlBtn {
+        background-color: #c0c0c0;
+        border: 2px outset #fff;
+        font-size: 10px;
+        font-weight: bold;
+        cursor: pointer;
+        width: 18px;
+        height: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .navBar {
+        background-color: #c0c0c0;
+        border-bottom: 2px solid #808080;
+        padding: 6px 10px;
+        display: flex;
+        gap: 15px;
+        font-size: 12px;
+        align-items: center;
+      }
+      .navLink {
+        color: #000;
+        text-decoration: none;
+        padding: 2px 4px;
+      }
+      .navLink:hover {
+        text-decoration: underline;
+      }
+      .activeTab {
+        font-weight: bold;
+        background-color: #000080;
+        color: #fff !important;
+        border: 1px dotted #fff;
+      }
+      .chatLink {
+        color: #ff7777;
+      }
+      .sysLog {
+        background-color: #000;
+        color: #00ff00;
+        font-family: 'Courier New', monospace;
+        font-size: 11px;
+        padding: 4px 10px;
+        text-align: right;
+        border-bottom: 1px solid #404040;
+      }
+      .contentArea {
+        padding: 20px;
+        background-color: #c0c0c0;
+        min-height: 400px;
+      }
+      .retroWindow {
+        background-color: #c0c0c0;
+        border: 2px solid;
+        border-color: #fff #404040 #404040 #fff;
+        box-shadow: inset 1px 1px #dfdfdf;
+      }
+      .retroTitleBar {
+        background: linear-gradient(90deg, #000080, #1084d0);
+        color: #fff;
+        padding: 4px 8px;
+        font-weight: bold;
+        font-size: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .retroBody {
+        padding: 15px;
+      }
+      .instructions {
+        font-size: 11px;
+        color: #404040;
+        margin-top: 0;
+        margin-bottom: 15px;
+      }
+      .terminalBox {
+        background-color: #000;
+        border: 2px inset #fff;
+        padding: 15px;
+        min-height: 250px;
+        font-family: 'Courier New', monospace;
+      }
+      .folderHeader {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #183D28;
+        color: #fff;
+        padding: 6px 10px;
+        font-size: 12px;
+        margin-bottom: 15px;
+        border: 1px inset #fff;
+      }
+      .restrictedBadge {
+        font-size: 10px;
+        color: #ffaaaa;
+      }
+      .characterList {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+      .charCard {
+        background: #0c0f0c;
+        background: #0c0f0c;
+        border: 1px inset #183D28;
+        padding: 12px;
+        display: flex;
+        gap: 15px;
+        align-items: flex-start;
+      }
+      .charPhotoFrame {
+        width: 110px;
+        height: 130px;
+        background: #000;
+        border: 1px solid #183D28;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      .charImg {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        image-rendering: pixelated;
+      }
+      .charDetails {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        flex-grow: 1;
+      }
+      .charHeaderInfo {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .charName {
+        font-size: 14px;
+        color: #fff;
+        margin: 0;
+        font-weight: bold;
+      }
+      .charStatus {
+        font-size: 10px;
+        color: #873C36;
+      }
+      .charRole {
+        font-size: 11px;
+        color: #A49B86;
+      }
+      .charDesc {
+        font-size: 11px;
+        color: #00ff00;
+        margin: 5px 0 0 0;
+        line-height: 1.4;
+      }
+      .backLink {
+        font-family: 'Courier New', monospace;
+        font-size: 12px;
+        color: #000;
+        text-decoration: underline;
+      }
+      .backLink:hover {
+        color: #000080;
+      }
+    </style>
+  </body>
+</html>

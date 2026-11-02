@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WindowBox from '../components/WindowBox.astro';
+import MediaManager from '../components/MediaManager.jsx';
+---
+<BaseLayout title="Vídeos | GOOD GARDEN ARCHIVE">
+  <WindowBox title="ARQUIVOS_DE_VIDEO_C:\GARDEN\VIDEOS">
+    <p style="font-family: var(--font-pixel); font-size: 11px; color: var(--color-dust); margin-top: 0;">
+      Transmissões e gravações em formato digital compactado. Envie arquivos `.mp4`.
+    </p>
+    <MediaManager client:load filterType="video" title="Acervo de Vídeos" />
+  </WindowBox>
+</BaseLayout>

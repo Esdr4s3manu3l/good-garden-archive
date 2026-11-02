@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WindowBox from '../components/WindowBox.astro';
+import ChatRoom from '../components/ChatRoom.jsx';
+---
+<BaseLayout title="Chat / IRC | GOOD GARDEN ARCHIVE">
+  <WindowBox title="SALA_DE_BAIXO_IRC_._CHANNELS">
+    <p style="font-family: var(--font-pixel); font-size: 11px; margin-top: 0; color: var(--color-dust);">
+      Conexão aberta via WebSocket. Envie sua mensagem para o servidor do jardim em tempo real.
+    </p>
+    
+    <!-- Componente de Chat Interativo em React -->
+    <ChatRoom client:load />
+  </WindowBox>
+</BaseLayout>

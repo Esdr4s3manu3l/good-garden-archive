@@ -1,0 +1,174 @@
+/* src/styles/global.css */
+:root {
+  --win-bg: #c0c0c0;
+  --win-blue: #000080;
+  --win-blue-active: linear-gradient(90deg, #000080, #1084d0);
+  --win-gray: #ece9d8;
+  --win-dark-gray: #808080;
+  --win-border-light: #ffffff;
+  --win-border-dark: #404040;
+  --win-border-darker: #000000;
+  
+  /* Paleta Oficial GOOD GARDEN FAMILY adaptada ao OS */
+  --color-black: #101310;
+  --color-garden-green: #183D28;
+  --color-dust: #A49B86;
+  --color-rust: #873C36;
+  
+  --font-main: 'Tahoma', 'MS Sans Serif', sans-serif;
+  --font-pixel: 'Courier New', monospace;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #004e4e; /* Clássico verde teal do Windows 98 / desktop antigo */
+  color: #000000;
+  font-family: var(--font-main);
+  font-size: 13px;
+  line-height: 1.4;
+  /* Cursor retrô */
+  cursor: default;
+}
+
+a {
+  color: #0000ff;
+  text-decoration: underline;
+}
+a:hover {
+  color: var(--color-rust);
+}
+
+/* Scrollbar estilo Win98 */
+::-webkit-scrollbar {
+  width: 16px;
+  background-color: var(--win-bg);
+}
+::-webkit-scrollbar-track {
+  border: 1px solid var(--win-border-dark);
+  background: var(--win-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--win-bg);
+  border: 2px outset var(--win-border-light);
+}
+
+/* --- LAYOUT DE SISTEMA OPERACIONAL (DESKTOP) --- */
+#os-desktop {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+  background-image: radial-gradient(#006b6b 1px, transparent 1px);
+  background-size: 8px 8px;
+}
+
+/* Janela Principal (Estilo WinXP / Classic) */
+.win-window {
+  background-color: var(--win-bg);
+  border: 2px solid;
+  border-color: var(--win-border-light) var(--win-border-darker) var(--win-border-darker) var(--win-border-light);
+  box-shadow: 4px 4px 10px rgba(0,0,0,0.6);
+  max-width: 900px;
+  margin: 10px auto;
+  width: 100%;
+}
+
+.win-title-bar {
+  background: var(--win-blue-active);
+  color: #ffffff;
+  padding: 4px 6px;
+  font-weight: bold;
+  font-family: var(--font-main);
+  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  letter-spacing: 0.5px;
+}
+
+.win-title-buttons {
+  display: flex;
+  gap: 2px;
+}
+
+.win-btn {
+  background-color: var(--win-bg);
+  color: #000;
+  border: 2px outset var(--win-border-light);
+  font-family: var(--font-main);
+  font-size: 10px;
+  font-weight: bold;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+.win-btn:active {
+  border-style: inset;
+}
+
+.win-body {
+  padding: 15px;
+  background-color: var(--win-bg);
+  border: 1px solid var(--win-dark-gray);
+  margin: 4px;
+}
+
+/* Barra de Tarefas Inferior */
+.win-taskbar {
+  background-color: var(--win-bg);
+  border-top: 2px solid var(--win-border-light);
+  border-left: 2px solid var(--win-border-light);
+  border-right: 2px solid var(--win-border-darker);
+  border-bottom: 2px solid var(--win-border-darker);
+  padding: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-main);
+  font-size: 12px;
+  margin-top: 20px;
+}
+
+.start-button {
+  background-color: var(--win-bg);
+  border: 2px outset var(--win-border-light);
+  padding: 2px 10px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+.start-button:active {
+  border-style: inset;
+}
+
+.taskbar-tray {
+  border: 1px inset var(--win-border-darker);
+  padding: 2px 8px;
+  background-color: var(--win-gray);
+  font-family: var(--font-pixel);
+  font-size: 11px;
+}
+
+/* Responsividade Mobile */
+@media (max-width: 768px) {
+  #os-desktop {
+    padding: 0;
+  }
+  .win-window {
+    margin: 0;
+    border: none;
+    min-height: 100vh;
+  }
+}

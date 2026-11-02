@@ -1,0 +1,16 @@
+---
+const { title = "SYSTEM_WINDOW" } = Astro.props;
+---
+<div class="win-window" style="margin-bottom: 15px;">
+  <div class="win-title-bar">
+    <span>📁 {title}</span>
+    <div class="win-title-buttons">
+      <button class="win-btn" title="Minimizar">_</button>
+      <button class="win-btn" title="Maximizar">□</button>
+      <button class="win-btn" title="Fechar">✕</button>
+    </div>
+  </div>
+  <div class="win-body">
+    <slot />
+  </div>
+</div>

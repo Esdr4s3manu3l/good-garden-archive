@@ -1,0 +1,298 @@
+---
+// Página de Acervo de Áudio - Good Garden Archive (GGA)
+---
+
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Internet Explorer — http://good-garden-archive.sys/musica</title>
+  </head>
+  <body>
+
+    {/* Simulação da Janela do Navegador / Sistema */}
+    <div class="browserWindow">
+      
+      {/* Barra de Título do Internet Explorer */}
+      <div class="ieTitleBar">
+        <span>Internet Explorer — http://good-garden-archive.sys/musica</span>
+        <div class="windowControls">
+          <button class="controlBtn">_</button>
+          <button class="controlBtn">□</button>
+          <button class="controlBtn">X</button>
+        </div>
+      </div>
+
+      {/* Menu Superior de Navegação do Portal */}
+      <div class="navBar">
+        <a href="/" class="navLink">Início</a>
+        <a href="/personagens" class="navLink">Personagens</a>
+        <a href="/galeria" class="navLink">Galeria</a>
+        <a href="/music" class="navLink activeTab">Música</a>
+        <a href="/videos" class="navLink">Vídeos</a>
+        <a href="/classifieds" class="navLink">Classificados</a>
+        <a href="/arquivo" class="navLink">Arquivo</a>
+        <a href="/" class="navLink chatLink">[ Chat IRC ]</a>
+      </div>
+
+      {/* Barra de Log do Sistema */}
+      <div class="sysLog">
+        [SYS_LOG] Conexão segura estabelecida com o núcleo de áudio (CRAZY & CORE).
+      </div>
+
+      {/* Conteúdo Interno Estilo Diretório Windows 98 / Exploração */}
+      <div class="contentArea">
+        <div class="retroWindow">
+          
+          <div class="retroTitleBar">
+            <span>📁 DIRETÓRIO_AUDIO_C:\GARDEN\MUSIC</span>
+            <div class="windowControls">
+              <button class="controlBtn">_</button>
+              <button class="controlBtn">✕</button>
+            </div>
+          </div>
+
+          <div class="retroBody">
+            <p class="instructions">
+              Transmissões recuperadas, demos e arquivos de áudio residuais do projeto.
+            </p>
+
+            {/* Caixa estilo terminal para a lista de faixas */}
+            <div class="terminalBox">
+              
+              {/* Faixa 1 (Liberada) */}
+              <div class="trackItem">
+                <div>
+                  <span class="trackDate">[2004-10-12]</span>
+                  <div class="trackTitle">DEMO_01 // Overture_Loop.wav</div>
+                  <div class="trackDesc">Primeira gravação de sintaxe capturada nos testes iniciais.</div>
+                </div>
+                <button class="actionBtn" onclick="const a = new Audio('/assets/garden-track.mp3'); a.play();">
+                  ▶ OUVIR DEMO
+                </button>
+              </div>
+
+              <hr class="separator" />
+
+              {/* Faixa Secreta (Controlada via Terminal / localStorage) */}
+              <div class="trackItem" id="card-track-03">
+                <div>
+                  <span class="trackDate">[2006-01-05]</span>
+                  <div class="trackTitle" id="title-track-03">CLASSIFIED // [SINAL CRIPTOGRAFADO]</div>
+                  <div class="trackDesc" id="desc-track-03">Requer comando de liberação via Terminal Seguro ("unlock track-03").</div>
+                </div>
+                <div id="action-track-03">
+                  <span class="lockedText">🔒 [SINAL BLOQUEADO]</span>
+                </div>
+              </div>
+
+            </div>
+
+            <div style="margin-top: 15px;">
+              <a href="/" class="backLink">← Retornar à Área de Trabalho</a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    {/* Script para verificar se a faixa secreta foi desbloqueada no Terminal */}
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const isUnlocked = localStorage.getItem('unlocked_track-03');
+        
+        if (isUnlocked === 'true') {
+          const card = document.getElementById('card-track-03');
+          const title = document.getElementById('title-track-03');
+          const desc = document.getElementById('desc-track-03');
+          const action = document.getElementById('action-track-03');
+
+          if (card && title && desc && action) {
+            card.style.opacity = '1';
+            title.textContent = 'CLASSIFIED // Raccoon_Transmission_Encrypted';
+            desc.textContent = 'Transmissão recuperada com sucesso após autorização do terminal.';
+            
+            action.innerHTML = `
+              <button class="actionBtn" onclick="const a = new Audio('/assets/garden-track.mp3'); a.play();">
+                ▶ OUVIR DEMO
+              </button>
+            `;
+          }
+        }
+      });
+    </script>
+
+    <style>
+      body {
+        background-color: #004e4e;
+        background-image: radial-gradient(#006b6b 1px, transparent 1px);
+        background-size: 8px 8px;
+        margin: 0;
+        padding: 20px;
+        font-family: 'Tahoma', sans-serif;
+        user-select: none;
+      }
+      .browserWindow {
+        width: 900px;
+        margin: 0 auto;
+        background-color: #c0c0c0;
+        border: 2px solid;
+        border-color: #fff #404040 #404040 #fff;
+        box-shadow: 4px 4px 15px rgba(0,0,0,0.6);
+      }
+      .ieTitleBar {
+        background: linear-gradient(90deg, #000080, #1084d0);
+        color: #fff;
+        padding: 4px 8px;
+        font-weight: bold;
+        font-size: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .windowControls {
+        display: flex;
+        gap: 2px;
+      }
+      .controlBtn {
+        background-color: #c0c0c0;
+        border: 2px outset #fff;
+        font-size: 10px;
+        font-weight: bold;
+        cursor: pointer;
+        width: 18px;
+        height: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .navBar {
+        background-color: #c0c0c0;
+        border-bottom: 2px solid #808080;
+        padding: 6px 10px;
+        display: flex;
+        gap: 15px;
+        font-size: 12px;
+        align-items: center;
+      }
+      .navLink {
+        color: #000;
+        text-decoration: none;
+        padding: 2px 4px;
+      }
+      .navLink:hover {
+        text-decoration: underline;
+      }
+      /* Aba ativa com destaque de seleção */
+      .activeTab {
+        font-weight: bold;
+        background-color: #000080;
+        color: #fff !important;
+        border: 1px dotted #fff;
+      }
+      .chatLink {
+        color: #ff7777;
+      }
+      .sysLog {
+        background-color: #000;
+        color: #00ff00;
+        font-family: 'Courier New', monospace;
+        font-size: 11px;
+        padding: 4px 10px;
+        text-align: right;
+        border-bottom: 1px solid #404040;
+      }
+      .contentArea {
+        padding: 20px;
+        background-color: #c0c0c0;
+        min-height: 400px;
+      }
+      .retroWindow {
+        background-color: #c0c0c0;
+        border: 2px solid;
+        border-color: #fff #404040 #404040 #fff;
+        box-shadow: inset 1px 1px #dfdfdf;
+      }
+      .retroTitleBar {
+        background: linear-gradient(90deg, #000080, #1084d0);
+        color: #fff;
+        padding: 4px 8px;
+        font-weight: bold;
+        font-size: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .retroBody {
+        padding: 15px;
+      }
+      .instructions {
+        font-size: 11px;
+        color: #404040;
+        margin-top: 0;
+        margin-bottom: 15px;
+      }
+      .terminalBox {
+        background-color: #000;
+        border: 2px inset #fff;
+        padding: 15px;
+        min-height: 220px;
+        font-family: 'Courier New', monospace;
+      }
+      .trackItem {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+      }
+      .trackDate {
+        font-size: 10px;
+        color: #A49B86;
+      }
+      .trackTitle {
+        font-size: 13px;
+        color: #fff;
+        font-weight: bold;
+        margin: 2px 0;
+      }
+      .trackDesc {
+        font-size: 11px;
+        color: #873C36;
+      }
+      /* Botão estilizado com relevo retro */
+      .actionBtn {
+        background: #c0c0c0;
+        color: #000;
+        border: 2px outset #fff;
+        padding: 6px 12px;
+        font-family: 'Tahoma', sans-serif;
+        font-size: 11px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .actionBtn:active {
+        border-style: inset;
+      }
+      .lockedText {
+        font-size: 11px;
+        color: #873C36;
+      }
+      .separator {
+        border: 0;
+        border-top: 1px dashed #183D28;
+        margin: 10px 0;
+      }
+      .backLink {
+        font-family: 'Courier New', monospace;
+        font-size: 12px;
+        color: #000;
+        text-decoration: underline;
+      }
+      .backLink:hover {
+        color: #000080;
+      }
+    </style>
+  </body>
+</html>

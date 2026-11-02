@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WindowBox from '../components/WindowBox.astro';
+import PixelDivider from '../components/PixelDivider.astro';
+import GlitchTeaser from '../components/GlitchTeaser.jsx';
+---
+<BaseLayout title="Classificados | GOOD GARDEN ARCHIVE">
+  <WindowBox title="MURAL_DE_CLASSIFICADOS">
+    
+    <!-- Pista oculta no código-fonte para investigadores curiosos -->
+    <!-- [ARG_HINT]: A chave mestre está escondida nas raízes. Procure pelo arquivo oculto. -->
+
+    <div class="post">
+      <span class="date">[ 04/11/2006 ]</span>
+      <p>Troco monitor CRT 15" por informações sobre a porta leste. Contato apenas pelo canal seguro.</p>
+    </div>
+    <PixelDivider />
+    
+    <div class="post">
+      <span class="date">[ 22/10/2006 ]</span>
+      <p>Alguém mais ouviu o ruído de estática ontem à noite? Aquilo não era vento.</p>
+    </div>
+    
+    <!-- Componente interativo que redireciona para a página oculta -->
+    <GlitchTeaser client:load />
+
+    <PixelDivider />
+    <div class="post">
+      <span class="date">[ 15/09/2006 ]</span>
+      <p>A fita desapareceu. Se você pegou, sabe o que vai acontecer.</p>
+    </div>
+  </WindowBox>
+</BaseLayout>
+
+<style>
+  .post p { margin-top: 5px; }
+  .date { font-family: var(--font-pixel); color: var(--color-garden-green); font-size: 11px; }
+</style>

@@ -1,0 +1,418 @@
+---
+// Página de Galeria - Good Garden Archive (GGA)
+
+// Acervo oficial de imagens (Progresso: 3 de 20 liberadas)
+const galleryImages = [
+  {
+    id: 'img-01',
+    title: 'OWL & RACCOON NO MACDONALDS',
+    date: '2004-10-12',
+    src: '/assets/gallery/img_01.png',
+    description: 'Registro inicial de campo capturado fora do horário comercial.'
+  },
+  {
+    id: 'img-02',
+    title: 'OWL & RACCOON OFERECE',
+    date: '2004-10-15',
+    src: '/assets/gallery/img_02.jpg',
+    description: 'Panfleto promocional recuperado dos arquivos mortos.'
+  },
+  {
+    id: 'img-03',
+    title: 'POBRE RACCOON',
+    date: '2004-10-20',
+    src: '/assets/gallery/img_03.jpg',
+    description: 'Documentação visual de desgaste estrutural do operador Raccoon.'
+  }
+];
+---
+
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Internet Explorer — http://good-garden-archive.sys/galeria</title>
+  </head>
+  <body>
+
+    {/* Simulação da Janela do Navegador / Sistema */}
+    <div class="browserWindow">
+      
+      {/* Barra de Título do Internet Explorer */}
+      <div class="ieTitleBar">
+        <span>Internet Explorer — http://good-garden-archive.sys/galeria</span>
+        <div class="windowControls">
+          <button class="controlBtn">_</button>
+          <button class="controlBtn">□</button>
+          <button class="controlBtn">X</button>
+        </div>
+      </div>
+
+      {/* Menu Superior de Navegação do Portal */}
+      <div class="navBar">
+        <a href="/" class="navLink">Início</a>
+        <a href="/personagens" class="navLink">Personagens</a>
+        <a href="/galeria" class="navLink activeTab">Galeria</a>
+        <a href="/music" class="navLink">Música</a>
+        <a href="/videos" class="navLink">Vídeos</a>
+        <a href="/classifieds" class="navLink">Classificados</a>
+        <a href="/arquivo" class="navLink">Arquivo</a>
+        <a href="/" class="navLink chatLink">[ Chat IRC ]</a>
+      </div>
+
+      {/* Barra de Log do Sistema */}
+      <div class="sysLog">
+        [SYS_LOG] Acervo fotográfico carregado: 3 de 20 registros recuperados. Clique em uma imagem para ampliar.
+      </div>
+
+      {/* Conteúdo Interno Estilo Diretório Windows 98 / Exploração */}
+      <div class="contentArea">
+        <div class="retroWindow">
+          
+          <div class="retroTitleBar">
+            <span>📁 DIRETÓRIO_FOTOGRAFICO_C:\GARDEN\PHOTOS</span>
+            <div class="windowControls">
+              <button class="controlBtn">_</button>
+              <button class="controlBtn">✕</button>
+            </div>
+          </div>
+
+          <div class="retroBody">
+            <p class="instructions">
+              Registros visuais oficiais do acervo (CRAZY & CORE). Clique na miniatura para abrir em tamanho real.
+            </p>
+
+            {/* Caixa estilo diretório com a grade de imagens */}
+            <div class="terminalBox">
+              <div class="folderHeader">
+                <span>📁 Galeria de Imagens Oficial</span>
+                <span class="restrictedBadge">🔒 [3/20 LIBERADAS]</span>
+              </div>
+
+              <div class="imageGrid">
+                {galleryImages.map((img) => (
+                  <div class="imageCard" onclick={`openModal('${img.src}', '${img.title}', '${img.description}')`}>
+                    <div class="imageThumbFrame">
+                      <img src={img.src} alt={img.title} class="retroImg" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'80\'><rect width=\'100\' height=\'80\' fill=\'%23111\'/><text x=\'50%\' y=\'50%\' fill=\'%2300ff00\' font-size=\'9\' text-anchor=\'middle\' dominant-baseline=\'middle\'>AGUARDANDO...</text></svg>'" />
+                    </div>
+                    <div class="imageInfo">
+                      <span class="imgDate">[{img.date}]</span>
+                      <div class="imgTitle">{img.title}</div>
+                      <div class="imgDesc">{img.description}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div style="margin-top: 15px;">
+              <a href="/" class="backLink">← Retornar à Área de Trabalho</a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    {/* Modal Estilo Janela Retrô para Visualização Completa da Imagem */}
+    <div id="imageModal" class="modalOverlay" style="display: none;">
+      <div class="modalWindow">
+        <div class="ieTitleBar">
+          <span id="modalTitle">Visualizador de Imagens</span>
+          <div class="windowControls">
+            <button class="controlBtn" onclick="closeModal()">✕</button>
+          </div>
+        </div>
+        <div class="modalBody">
+          <div class="modalImageContainer">
+            <img id="modalImg" src="" alt="Imagem Ampliada" class="fullImage" />
+          </div>
+          <p id="modalDesc" class="modalDescription"></p>
+          <button class="actionBtn" onclick="closeModal()">[ FECHAR ]</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Funções globais para gerenciar o modal de visualização
+      window.openModal = function(src, title, desc) {
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImg');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDesc = document.getElementById('modalDesc');
+
+        modalImg.src = src;
+        modalTitle.textContent = `Visualizador — ${title}`;
+        modalDesc.textContent = desc;
+        modal.style.display = 'flex';
+      }
+
+      window.closeModal = function() {
+        const modal = document.getElementById('imageModal');
+        modal.style.display = 'none';
+      }
+
+      // Fecha o modal ao pressionar ESC
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          closeModal();
+        }
+      });
+    </script>
+
+    <style>
+      body {
+        background-color: #004e4e;
+        background-image: radial-gradient(#006b6b 1px, transparent 1px);
+        background-size: 8px 8px;
+        margin: 0;
+        padding: 20px;
+        font-family: 'Tahoma', sans-serif;
+        user-select: none;
+      }
+      .browserWindow {
+        width: 950px;
+        margin: 0 auto;
+        background-color: #c0c0c0;
+        border: 2px solid;
+        border-color: #fff #404040 #404040 #fff;
+        box-shadow: 4px 4px 15px rgba(0,0,0,0.6);
+      }
+      .ieTitleBar {
+        background: linear-gradient(90deg, #000080, #1084d0);
+        color: #fff;
+        padding: 4px 8px;
+        font-weight: bold;
+        font-size: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .windowControls {
+        display: flex;
+        gap: 2px;
+      }
+      .controlBtn {
+        background-color: #c0c0c0;
+        border: 2px outset #fff;
+        font-size: 10px;
+        font-weight: bold;
+        cursor: pointer;
+        width: 18px;
+        height: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .navBar {
+        background-color: #c0c0c0;
+        border-bottom: 2px solid #808080;
+        padding: 6px 10px;
+        display: flex;
+        gap: 15px;
+        font-size: 12px;
+        align-items: center;
+      }
+      .navLink {
+        color: #000;
+        text-decoration: none;
+        padding: 2px 4px;
+      }
+      .navLink:hover {
+        text-decoration: underline;
+      }
+      .activeTab {
+        font-weight: bold;
+        background-color: #000080;
+        color: #fff !important;
+        border: 1px dotted #fff;
+      }
+      .chatLink {
+        color: #ff7777;
+      }
+      .sysLog {
+        background-color: #000;
+        color: #00ff00;
+        font-family: 'Courier New', monospace;
+        font-size: 11px;
+        padding: 4px 10px;
+        text-align: right;
+        border-bottom: 1px solid #404040;
+      }
+      .contentArea {
+        padding: 20px;
+        background-color: #c0c0c0;
+        min-height: 400px;
+      }
+      .retroWindow {
+        background-color: #c0c0c0;
+        border: 2px solid;
+        border-color: #fff #404040 #404040 #fff;
+        box-shadow: inset 1px 1px #dfdfdf;
+      }
+      .retroTitleBar {
+        background: linear-gradient(90deg, #000080, #1084d0);
+        color: #fff;
+        padding: 4px 8px;
+        font-weight: bold;
+        font-size: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .retroBody {
+        padding: 15px;
+      }
+      .instructions {
+        font-size: 11px;
+        color: #404040;
+        margin-top: 0;
+        margin-bottom: 15px;
+      }
+      .terminalBox {
+        background-color: #000;
+        border: 2px inset #fff;
+        padding: 15px;
+        min-height: 250px;
+        font-family: 'Courier New', monospace;
+      }
+      .folderHeader {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #183D28;
+        color: #fff;
+        padding: 6px 10px;
+        font-size: 12px;
+        margin-bottom: 15px;
+        border: 1px inset #fff;
+      }
+      .restrictedBadge {
+        font-size: 10px;
+        color: #ffaaaa;
+      }
+      .imageGrid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 15px;
+      }
+      .imageCard {
+        background: #0c0f0c;
+        border: 1px inset #183D28;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        cursor: pointer;
+      }
+      .imageCard:hover {
+        border-color: #00ff00;
+      }
+      .imageThumbFrame {
+        width: 100%;
+        height: 150px;
+        background: #000;
+        border: 1px solid #183D28;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      .retroImg {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        image-rendering: pixelated;
+      }
+      .imageInfo {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .imgDate {
+        font-size: 9px;
+        color: #A49B86;
+      }
+      .imgTitle {
+        font-size: 12px;
+        color: #fff;
+        font-weight: bold;
+      }
+      .imgDesc {
+        font-size: 10px;
+        color: #873C36;
+      }
+      .backLink {
+        font-family: 'Courier New', monospace;
+        font-size: 12px;
+        color: #000;
+        text-decoration: underline;
+      }
+      .backLink:hover {
+        color: #000080;
+      }
+      /* Estilos do Modal Estilo Janela Retrô */
+      .modalOverlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      }
+      .modalWindow {
+        width: 650px;
+        background-color: #c0c0c0;
+        border: 2px solid;
+        border-color: #fff #404040 #404040 #fff;
+        box-shadow: 6px 6px 20px rgba(0,0,0,0.8);
+      }
+      .modalBody {
+        padding: 15px;
+        text-align: center;
+        background-color: #c0c0c0;
+        font-family: 'Tahoma', sans-serif;
+      }
+      .modalImageContainer {
+        background: #000;
+        border: 2px inset #fff;
+        padding: 5px;
+        max-height: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        margin-bottom: 10px;
+      }
+      .fullImage {
+        max-width: 100%;
+        max-height: 380px;
+        object-fit: contain;
+      }
+      .modalDescription {
+        font-size: 12px;
+        color: #000;
+        margin-bottom: 15px;
+        font-family: 'Courier New', monospace;
+      }
+      .actionBtn {
+        background: #c0c0c0;
+        color: #000;
+        border: 2px outset #fff;
+        padding: 6px 16px;
+        font-family: 'Tahoma', sans-serif;
+        font-size: 11px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .actionBtn:active {
+        border-style: inset;
+      }
+    </style>
+  </body>
+</html>

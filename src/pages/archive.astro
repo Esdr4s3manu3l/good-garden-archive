@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WindowBox from '../components/WindowBox.astro';
+---
+<BaseLayout title="Arquivo | GOOD GARDEN ARCHIVE">
+  <WindowBox title="DIRETÓRIO_RAIZ">
+    <ul class="file-tree">
+      <li>[+] documentos/
+        <ul>
+          <li>📄 manifesto_jardim.txt</li>
+          <li>📄 relatorio_incidente.doc</li>
+        </ul>
+      </li>
+      <li>[+] logs_de_sistema/
+        <ul>
+          <li>📄 erro_086.log</li>
+          <li>📄 boot_sequence.sys</li>
+        </ul>
+      </li>
+      <li>[+] temp/
+        <ul>
+          <li>(pasta vazia)</li>
+        </ul>
+      </li>
+    </ul>
+  </WindowBox>
+</BaseLayout>
+
+<style>
+  .file-tree {
+    list-style: none;
+    padding-left: 5px;
+    font-family: var(--font-pixel);
+    line-height: 2;
+  }
+  .file-tree ul {
+    list-style: none;
+    padding-left: 20px;
+    border-left: 1px dashed var(--color-dust);
+    margin-left: 10px;
+  }
+  .file-tree li { color: var(--color-dust); cursor: default; }
+  .file-tree li:hover { color: var(--color-rust); }
+</style>

@@ -1,0 +1,31 @@
+---
+// Gera um número aleatório fixo durante o build para simular visitas
+const initialCount = 104206; 
+---
+<div class="hit-counter">
+  <p class="label">VISITANTES:</p>
+  <div class="counter-display">
+    [{initialCount}]
+  </div>
+</div>
+
+<style>
+  .hit-counter {
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid var(--color-garden-green);
+    text-align: center;
+  }
+  .label {
+    font-family: var(--font-pixel);
+    font-size: 10px;
+    color: var(--color-rust);
+    margin: 0 0 5px 0;
+  }
+  .counter-display {
+    font-family: var(--font-pixel);
+    font-size: 14px;
+    color: var(--color-garden-green);
+    letter-spacing: 2px;
+  }
+</style>
