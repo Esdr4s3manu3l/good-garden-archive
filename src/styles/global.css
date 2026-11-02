@@ -172,3 +172,42 @@ a:hover {
     min-height: 100vh;
   }
 }
+
+/* Ajuste para a janela principal do sistema se adaptar ao celular */
+.win-window {
+  width: 100% !important;
+  max-width: 950px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Responsividade para telas menores (smartphones) */
+@media (max-width: 768px) {
+  body {
+    padding: 5px !important;
+  }
+
+  /* Faz o menu superior quebrar linha ou rolar horizontalmente para não estragar o layout */
+  .win-window div[style*="display: flex"] {
+    flex-wrap: wrap;
+    gap: 8px !important;
+    font-size: 11px !important;
+  }
+
+  /* Ajusta o espaçamento interno das janelas no mobile */
+  .win-window div[style*="padding: 20px"] {
+    padding: 10px !important;
+  }
+
+  /* Ajusta a barra de tarefas no rodapé para telas pequenas */
+  .win-taskbar {
+    font-size: 10px !important;
+    padding: 0 5px;
+  }
+}
+/* Exemplo de grid responsivo para cards e fichas */
+.characterList, .gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 15px;
+}
