@@ -9,7 +9,8 @@ const { title = "GOOD GARDEN ARCHIVE" } = Astro.props;
 <html lang="pt-BR">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    {/* Ícone personalizado do GGA (salvo em public/favicon.ico) */}
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
@@ -17,7 +18,7 @@ const { title = "GOOD GARDEN ARCHIVE" } = Astro.props;
   </head>
   <body>
     <div id="os-desktop">
-      <!-- Janela Principal do Browser / Sistema -->
+      {/* Janela Principal do Browser / Sistema */}
       <div class="win-window" style="flex: 1; display: flex; flex-direction: column;">
         <div class="win-title-bar">
           <span>Internet Explorer — http://good-garden-archive.sys/{title.toLowerCase().split(' ')[0]}</span>
@@ -28,7 +29,7 @@ const { title = "GOOD GARDEN ARCHIVE" } = Astro.props;
           </div>
         </div>
 
-       <!-- Menu Superior Estilo Barra de Ferramentas -->
+       {/* Menu Superior Estilo Barra de Ferramentas */}
         <div style="background: var(--win-bg); border-bottom: 1px solid var(--win-dark-gray); padding: 5px 10px; display: flex; gap: 15px; font-size: 12px;">
           <a href="/" style="text-decoration: none; color: black;"><b>Início</b></a>
           <a href="/characters" style="text-decoration: none; color: black;">Personagens</a>
@@ -49,7 +50,7 @@ const { title = "GOOD GARDEN ARCHIVE" } = Astro.props;
         </div>
       </div>
 
-      <!-- Barra de Tarefas Estilo Windows XP / 98 -->
+      {/* Barra de Tarefas Estilo Windows XP / 98 */}
       <footer class="win-taskbar">
         <div class="start-button">
           <span>🟢</span> <b>Iniciar</b>
