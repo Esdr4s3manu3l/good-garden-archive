@@ -26,8 +26,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     import { createClient } from '@supabase/supabase-js';
 
     // Substitua pelas suas credenciais públicas ou variáveis de ambiente do cliente
-    const SUPABASE_URL = import.meta.env.PUBLIC_SUPABASE_URL || ' SUA_URL ';
-    const SUPABASE_KEY = import.meta.env.PUBLIC_SUPABASE_ANON_KEY || ' SUA_CHAVE ';
+    const SUPABASE_URL = import.meta.env.PUBLIC_SUPABASE_URL || ' https://oahqedyaqwmcinetnqrk.supabase.co ';
+    const SUPABASE_KEY = import.meta.env.PUBLIC_SUPABASE_ANON_KEY || ' eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9haHFlZHlhcXdtY2luZXRucXJrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM1ODEyNjksImV4cCI6MjEwOTE1NzI2OX0.ZxojJcKKzdZUYZ4DQDemFiuIynFoMc8IrQTlMOme0ak ';
     
     const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
