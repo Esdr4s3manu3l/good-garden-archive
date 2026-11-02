@@ -1,15 +1,80 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import WindowBox from '../components/WindowBox.astro';
-import ChatRoom from '../components/ChatRoom.jsx';
 ---
-<BaseLayout title="Chat / IRC | GOOD GARDEN ARCHIVE">
-  <WindowBox title="SALA_DE_BAIXO_IRC_._CHANNELS">
-    <p style="font-family: var(--font-pixel); font-size: 11px; margin-top: 0; color: var(--color-dust);">
-      Conexão aberta via WebSocket. Envie sua mensagem para o servidor do jardim em tempo real.
-    </p>
+
+<BaseLayout title="Chat IRC — Good Garden Archive">
+  <div style="background: #000; border: 2px inset #fff; padding: 15px; font-family: 'Courier New', monospace; color: #00ff00; height: 420px; display: flex; flex-direction: column; justify-content: space-between;">
     
-    <!-- Componente de Chat Interativo em React -->
-    <ChatRoom client:load />
-  </WindowBox>
+    <div style="background: #000080; color: #fff; padding: 4px; font-size: 11px; margin-bottom: 8px;">
+      STATUS: Conectado ao banco relacional criptografado #good-garden (Supabase Serverless)
+    </div>
+
+    <!-- Histórico de Mensagens -->
+    <div id="chat-box" style="flex: 1; overflow-y: auto; border: 1px solid #00ff00; padding: 10px; margin-bottom: 10px; font-size: 12px; display: flex; flexDirection: column; gap: 4px;">
+      <div>[SYS_LOG] Acesso concedido ao terminal de transmissão...</div>
+    </div>
+
+    <!-- Caixa de Envio -->
+    <div style="display: flex; gap: 5px;">
+      <span style="color: #00ff00; align-self: center;">&gt;</span>
+      <input type="text" id="chat-input" placeholder="Digite sua mensagem para o canal..." style="flex: 1; background: #000; color: #00ff00; border: 1px solid #00ff00; padding: 5px; font-family: 'Courier New', monospace;" />
+      <button id="chat-send" style="background: #c0c0c0; border: 2px outset #fff; padding: 5px 10px; font-weight: bold; cursor: pointer; color: #000;">Enviar</button>
+    </div>
+  </div>
+
+  <script>
+    import { createClient } from '@supabase/supabase-js';
+
+    // Substitua pelas suas credenciais públicas ou variáveis de ambiente do cliente
+    const SUPABASE_URL = import.meta.env.PUBLIC_SUPABASE_URL || ' SUA_URL ';
+    const SUPABASE_KEY = import.meta.env.PUBLIC_SUPABASE_ANON_KEY || ' SUA_CHAVE ';
+    
+    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const chatBox = document.getElementById('chat-box') as HTMLDivElement;
+    const chatInput = document.getElementById('chat-input') as HTMLInputElement;
+    const chatSend = document.getElementById('chat-send') as HTMLButtonElement;
+
+    const username = 'VISITANTE_' + Math.floor(Math.random() * 9000 + 1000);
+
+    function appendMessage(sender: string, text: string) {
+      if (!chatBox) return;
+      const div = document.createElement('div');
+      div.innerHTML = `<span style="color: #ffff00;">[${sender}]</span>: ${text}`;
+      chatBox.appendChild(div);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    // Carregar mensagens antigas
+    async function loadMessages() {
+      const { data } = await supabase.from('chat_messages').select('*').order('created_at', { ascending: true }).limit(50);
+      if (data) {
+        chatBox.innerHTML = '<div>[SYS_LOG] Histórico carregado do núcleo...</div>';
+        data.forEach(msg => appendMessage(msg.sender, msg.message));
+      }
+    }
+    loadMessages();
+
+    // Escutar novas mensagens em tempo real
+    supabase
+      .channel('public:chat_messages')
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'chat_messages' }, payload => {
+        appendMessage(payload.new.sender, payload.new.message);
+      })
+      .subscribe();
+
+    // Enviar mensagem
+    async function sendMessage() {
+      const text = chatInput.value.trim();
+      if (!text) return;
+      
+      await supabase.from('chat_messages').insert([{ sender: username, message: text }]);
+      chatInput.value = '';
+    }
+
+    chatSend?.addEventListener('click', sendMessage);
+    chatInput?.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') sendMessage();
+    });
+  </script>
 </BaseLayout>
