@@ -1,25 +1,41 @@
 ---
+// src/pages/chat.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout title="Chat IRC — Good Garden Archive">
-  <div style="background: #000; border: 2px inset #fff; padding: 15px; font-family: 'Courier New', monospace; color: #00ff00; height: 420px; display: flex; flex-direction: column; justify-content: space-between;">
+  <div style="background: #000; border: 2px inset #fff; padding: 15px; font-family: 'Courier New', monospace; color: #00ff00; height: 440px; display: flex; flex-direction: column; justify-content: space-between;">
     
     <div style="background: #000080; color: #fff; padding: 4px; font-size: 11px; margin-bottom: 8px;">
       STATUS: Conectado ao banco relacional criptografado #good-garden (Supabase Serverless)
     </div>
 
-    <!-- Histórico de Mensagens -->
-    <div id="chat-box" style="flex: 1; overflow-y: auto; border: 1px solid #00ff00; padding: 10px; margin-bottom: 10px; font-size: 12px; display: flex; flex-direction: column; gap: 4px;">
-      <div>[SYS_LOG] Acesso concedido ao terminal de transmissão...</div>
+    {/* Tela de Identificação (Nick / Nome do Usuário) */}
+    <div id="login-screen" style="display: flex; flex-direction: column; justify-content: center; align-items: center; flex: 1; gap: 10px;">
+      <p style="font-size: 13px; text-align: center; color: #00ff00;">INSIRA SUA ALCUNHA / NOME PARA CONECTAR:</p>
+      <div style="display: flex; gap: 5px; width: 80%; max-width: 300px;">
+        <input type="text" id="username-input" placeholder="ex: hacker_98" maxlength="15" style="flex: 1; background: #000; color: #00ff00; border: 1px solid #00ff00; padding: 5px; font-family: 'Courier New', monospace;" />
+        <button id="login-btn" style="background: #c0c0c0; border: 2px outset #fff; padding: 5px 10px; font-weight: bold; cursor: pointer; color: #000;">ENTRAR</button>
+      </div>
     </div>
 
-    <!-- Caixa de Envio -->
-    <div style="display: flex; gap: 5px;">
-      <span style="color: #00ff00; align-self: center;">&gt;</span>
-      <input type="text" id="chat-input" placeholder="Digite sua mensagem para o canal..." style="flex: 1; background: #000; color: #00ff00; border: 1px solid #00ff00; padding: 5px; font-family: 'Courier New', monospace;" />
-      <button id="chat-send" style="background: #c0c0c0; border: 2px outset #fff; padding: 5px 10px; font-weight: bold; cursor: pointer; color: #000;">Enviar</button>
+    {/* Interface do Chat (Oculta até o usuário definir o nome) */}
+    <div id="chat-interface" style="display: none; flex: 1; flex-direction: column; justify-content: space-between;">
+      
+      <!-- Histórico de Mensagens -->
+      <div id="chat-box" style="flex: 1; overflow-y: auto; border: 1px solid #00ff00; padding: 10px; margin-bottom: 10px; font-size: 12px; display: flex; flex-direction: column; gap: 4px;">
+        <div>[SYS_LOG] Acesso concedido ao terminal de transmissão...</div>
+      </div>
+
+      <!-- Caixa de Envio -->
+      <div style="display: flex; gap: 5px;">
+        <span style="color: #00ff00; align-self: center;">&gt;</span>
+        <input type="text" id="chat-input" placeholder="Digite sua mensagem para o canal..." style="flex: 1; background: #000; color: #00ff00; border: 1px solid #00ff00; padding: 5px; font-family: 'Courier New', monospace;" />
+        <button id="chat-send" style="background: #c0c0c0; border: 2px outset #fff; padding: 5px 10px; font-weight: bold; cursor: pointer; color: #000;">Enviar</button>
+      </div>
+
     </div>
+
   </div>
 
   <script>
@@ -30,11 +46,35 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     
     const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
+    const loginScreen = document.getElementById('login-screen') as HTMLDivElement;
+    const chatInterface = document.getElementById('chat-interface') as HTMLDivElement;
+    const usernameInput = document.getElementById('username-input') as HTMLInputElement;
+    const loginBtn = document.getElementById('login-btn') as HTMLButtonElement;
+
     const chatBox = document.getElementById('chat-box') as HTMLDivElement;
     const chatInput = document.getElementById('chat-input') as HTMLInputElement;
     const chatSend = document.getElementById('chat-send') as HTMLButtonElement;
 
-    const username = 'VISITANTE_' + Math.floor(Math.random() * 9000 + 1000);
+    let username = '';
+
+    function initChat() {
+      const typedName = usernameInput.value.trim();
+      if (!typedName) {
+        alert('Por favor, digite um nome válido!');
+        return;
+      }
+      username = typedName;
+      loginScreen.style.display = 'none';
+      chatInterface.style.display = 'flex';
+
+      loadMessages();
+      listenMessages();
+    }
+
+    loginBtn?.addEventListener('click', initChat);
+    usernameInput?.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') initChat();
+    });
 
     function appendMessage(sender: string, text: string) {
       if (!chatBox) return;
@@ -48,19 +88,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     async function loadMessages() {
       const { data } = await supabase.from('chat_messages').select('*').order('created_at', { ascending: true }).limit(50);
       if (data) {
-        chatBox.innerHTML = '<div>[SYS_LOG] Histórico carregado do núcleo...</div>';
+        chatBox.innerHTML = `<div>[SYS_LOG] Bem-vindo ao canal, ${username}. Histórico carregado do núcleo...</div>`;
         data.forEach(msg => appendMessage(msg.sender, msg.message));
       }
     }
-    loadMessages();
 
     // Escutar novas mensagens em tempo real
-    supabase
-      .channel('public:chat_messages')
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'chat_messages' }, payload => {
-        appendMessage(payload.new.sender, payload.new.message);
-      })
-      .subscribe();
+    function listenMessages() {
+      supabase
+        .channel('public:chat_messages')
+        .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'chat_messages' }, payload => {
+          appendMessage(payload.new.sender, payload.new.message);
+        })
+        .subscribe();
+    }
 
     // Enviar mensagem
     async function sendMessage() {
